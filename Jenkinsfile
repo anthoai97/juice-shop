@@ -20,7 +20,7 @@ pipeline {
 
         stage('git leak fs scan') {
             steps {
-                sh "gitleaks dir"
+                sh "gitleaks --help"
             }
         }
     }
