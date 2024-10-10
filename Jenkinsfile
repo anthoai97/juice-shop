@@ -29,7 +29,7 @@ pipeline {
                         alias gitleaks="gitleaks dir --verbose --redact=80 --exit-code 183 --no-banner --no-color --report-format json --report-path secrets.json "
                         gitleaks 2> ./gitleaks-summary.txt
                         echo $?
-                    ''', returnStdout: true).trim()
+                    ''', returnStdout: false).trim()
 
                     echo "Gitleaks exit code: ${exitcode}"
                     if (exitcode == "1") {
