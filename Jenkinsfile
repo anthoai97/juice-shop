@@ -12,9 +12,15 @@ pipeline {
             }
         }
 
-        stage('trivy fs scan') {
+        // stage('trivy fs scan') {
+        //     steps {
+        //         sh "trivy fs --format table -o fs.html ."
+        //     }
+        // }
+
+        stage('git leak fs scan') {
             steps {
-                sh " trivy fs --format table -o fs.html ."
+                sh "gitleaks dir ."
             }
         }
     }
