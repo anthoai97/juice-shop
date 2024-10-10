@@ -32,7 +32,7 @@ pipeline {
                     ''', returnStatus: true)
 
                     echo "Gitleaks exit code: ${exitcode}"
-                    if (exitcode == "1") {
+                    if (exitcode == 1) {
                         security_check = "false"  // Security check fails
                         echo "Security check failed due to Gitleaks!"
                     } else {
