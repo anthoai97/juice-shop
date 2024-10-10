@@ -22,11 +22,11 @@ pipeline {
         //     }
         // }
 
-        stage('Git leak fs scan') {
+        stage('Gitleaks fs scan') {
             steps {
                 script {
                     def exitcode = sh(script: '''
-                        alias gitleaks="gitleaks dir --verbose --exit-code 183 --no-banner --no-color --report-format json --report-path secrets.json"
+                        alias gitleaks="gitleaks dir --verbose --redact=80 --exit-code 183 --no-banner --no-color --report-format json --report-path secrets.json "
                         gitleaks 2> ./gitleaks-summary.txt
                         echo $?
                     ''', returnStdout: true).trim()
@@ -44,7 +44,7 @@ pipeline {
             }
         }
 
-        stage('Notification') {
+        stage('Notification') { 
             steps {
                 script {
                     // Use the updated security_check variable for notification
