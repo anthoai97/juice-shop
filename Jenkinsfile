@@ -26,10 +26,10 @@ pipeline {
             steps {
                 script {
                     def exitcode = sh(script: '''
-                        alias gitleaks="gitleaks dir --verbose --redact=80 --exit-code 183 --no-banner --no-color --report-format json --report-path secrets.json "
+                        alias gitleaks="gitleaks dir --verbose --redact=80 --no-banner --no-color --report-format json --report-path secrets.json "
                         gitleaks 2> ./gitleaks-summary.txt
                         echo $?
-                    ''', returnStdout: false).trim()
+                    ''', returnStdout: true).trim()
 
                     echo "Gitleaks exit code: ${exitcode}"
                     if (exitcode == "1") {
