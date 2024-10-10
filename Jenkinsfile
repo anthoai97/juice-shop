@@ -11,6 +11,12 @@ pipeline {
                 sh 'npm version'
             }
         }
+
+        stage('trivy fs scan') {
+            steps {
+                sh " trivy fs --format table -o fs.html ."
+            }
+        }
     }
 
 }
