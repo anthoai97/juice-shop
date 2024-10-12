@@ -57,7 +57,7 @@ pipeline {
                             -F "scan_type=Gitleaks Scan" \
                             -F "active=true" \
                             -F "engagement=${ENGAGEMENT_ID}"
-                        '''
+                        ''')
                     }
                 }
             }
