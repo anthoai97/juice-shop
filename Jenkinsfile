@@ -42,10 +42,11 @@ pipeline {
                     }
                 }
             }
+        }
 
+        stage('Upload Report') {
             steps {
                 script {
-                    
                     if (exitcode == 1) {
                         withCredentials([string(credentialsId: 'defectdojo-api-token', variable: 'DEFECTDOJO_API_TOKEN')]) {
                              sh(script: """
@@ -63,6 +64,7 @@ pipeline {
             }
         }
 
+            
         stage('Notification') { 
             steps {
                 script {
