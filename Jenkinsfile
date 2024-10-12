@@ -8,7 +8,6 @@ pipeline {
     environment {
         // Set your DefectDojo API and URL
         DEFECTDOJO_URL = 'http://localhost:8080'
-        DEFECTDOJO_API_TOKEN = credentials('defectdojo')  // Store your API token in Jenkins credentials
         ENGAGEMENT_ID = '1'  // Set your Engagement ID in DefectDojo
     }
 
@@ -37,18 +36,28 @@ pipeline {
                         security_check = "false"  // Security check fails
                         echo "Security check failed due to Gitleaks!"
                         // Send report to DEFECT DOJO
-                        sh(script: """
-                            curl -X POST "${DEFECTDOJO_URL}/api/v2/import-scan/" \
-                            -H "Authorization: Token ${DEFECTDOJO_API_TOKEN}" \
-                            -H "Content-Type: multipart/form-data" \
-                            -F "file=@gitleaks-report.json" \
-                            -F "scan_type=Gitleaks Scan" \
-                            -F "active=true"
-                            -F "engagement=${ENGAGEMENT_ID}"
-                        """)
                     } else {
                         security_check = "true"  // Security check passes
                         echo "Security check passed!"
+                    }
+                }
+            }
+
+            steps {
+                script {
+                    
+                    if (exitcode == 1) {
+                        withCredentials([string(credentialsId: 'defectdojo-api-token', variable: 'DEFECTDOJO_API_TOKEN')]) {
+                             sh(script: """
+                                curl -X POST "${DEFECTDOJO_URL}/api/v2/import-scan/" \
+                                -H "Authorization: Token ${DEFECTDOJO_API_TOKEN}" \
+                                -H "Content-Type: multipart/form-data" \
+                                -F "file=@gitleaks-report.json" \
+                                -F "scan_type=Gitleaks Scan" \
+                                -F "active=true"
+                                -F "engagement=${ENGAGEMENT_ID}"
+                            """)
+                        }
                     }
                 }
             }
