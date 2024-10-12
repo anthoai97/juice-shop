@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         // Set your DefectDojo API and URL
-        DEFECTDOJO_URL = 'http:localhost:8080'
+        DEFECTDOJO_URL = 'http://localhost:8080'
         DEFECTDOJO_API_TOKEN = credentials('defectdojo')  // Store your API token in Jenkins credentials
         ENGAGEMENT_ID = '1'  // Set your Engagement ID in DefectDojo
     }
