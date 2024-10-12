@@ -37,7 +37,7 @@ pipeline {
                         security_check = "false"  // Security check fails
                         echo "Security check failed due to Gitleaks!"
                         // Send report to DEFECT DOJO
-                        sh(script: '''
+                        sh(script: """
                             curl -X POST "${DEFECTDOJO_URL}/api/v2/import-scan/" \
                             -H "Authorization: Token ${DEFECTDOJO_API_TOKEN}" \
                             -H "Content-Type: multipart/form-data" \
@@ -45,7 +45,7 @@ pipeline {
                             -F "scan_type=Gitleaks Scan" \
                             -F "active=true"
                             -F "engagement=${ENGAGEMENT_ID}"
-                        ''')
+                        """)
                     } else {
                         security_check = "true"  // Security check passes
                         echo "Security check passed!"
