@@ -47,7 +47,7 @@ pipeline {
         stage('Upload Report') {
             steps {
                 script {
-                    echo "Gitleaks exit code: ${exitcode}"
+                    echo "Gitleaks exit code: ${security_check}"
                     withCredentials([string(credentialsId: 'defectdojo', variable: 'DEFECTDOJO_API_TOKEN')]) {
                             sh(script: """
                             curl -X POST "${DEFECTDOJO_URL}/api/v2/import-scan/" \
