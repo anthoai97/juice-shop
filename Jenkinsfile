@@ -8,7 +8,8 @@ pipeline {
     environment {
         // Set your DefectDojo API and URL
         DEFECTDOJO_URL = 'http://nginx:8080'
-        ENGAGEMENT_ID = '1'  // Set your Engagement ID in DefectDojo
+        ENGAGEMENT_ID = '2'  // Set your Engagement ID in DefectDojo
+
     }
 
     stages {
